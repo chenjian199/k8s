@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multus-webhook
+  namespace: dynamo-system
+  labels:
+    app: multus-webhook
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multus-webhook
+  template:
+    metadata:
+      labels:
+        app: multus-webhook
+    spec:
+      containers:
+      - name: webhook
+        image: docker.io/library/webhook:v5
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8443
+          name: https
+        volumeMounts:
+        - name: ca
+          mountPath: /certs
+          readOnly: true
+      volumes:
+      - name: ca
+        secret:
+          secretName: multus-webhook-tls
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: multus-webhook
+  namespace: dynamo-system
+spec:
+  selector:
+    app: multus-webhook
+  ports:
+  - name: https
+    port: 443
+    targetPort: 8443

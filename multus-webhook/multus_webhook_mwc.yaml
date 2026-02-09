@@ -1,0 +1,33 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: multus-networks-injector
+webhooks:
+- name: multus-networks-injector.dynamo-system.svc
+  admissionReviewVersions: ["v1"]
+  sideEffects: None
+  failurePolicy: Ignore
+  matchPolicy: Equivalent
+  namespaceSelector:
+    matchExpressions:
+    - key: kubernetes.io/metadata.name
+      operator: In
+      values: ["dynamo-system"]
+  objectSelector:
+    matchLabels:
+      nvidia.com/dynamo-component-type: "worker"
+  rules:
+  - apiGroups: [""]
+    apiVersions: ["v1"]
+    operations: ["CREATE"]
+    resources: ["pods"]
+    scope: "Namespaced"
+  clientConfig:
+    service:
+      name: multus-webhook
+      namespace: dynamo-system
+      path: /mutate
+      port: 443
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURHVENDQWdHZ0F3SUJBZ0lVVnBKRlltQmNMVSs5cWMxbDYxTkJPNDVSSFJRd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0hERWFNQmdHQTFVRUF3d1JiWFZzZEhWekxYZGxZbWh2YjJzdFkyRXdIaGNOTWpZd01UTXdNRGd6TnpFMgpXaGNOTXpZd01USTRNRGd6TnpFMldqQWNNUm93R0FZRFZRUUREQkZ0ZFd4MGRYTXRkMlZpYUc5dmF5MWpZVENDCkFTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTXZ2NDduaHQvR2wrTTRraWV2bloycEkKQnJGZm5lTlhrdzVWV0JZVGRmWFJXektEK2Q5QUJxWDE1cWgyQTZxU3JPYkI3ZUcvNGl2UUtHdWxBQmxqa2tzaQozUTlFZ3FPK2xwZ25jQWZBZDIxc3VUWUhVa05YSHY2bkxvM3BPL3BnamtRcDRGbzh0ZzU5V01IdjNHSkV0RFB2CkFKVHhTNy9MazlUVGJrd2RDK2dFSTJNYUhWTkd4a3EyLzRiVGZqcUtjdlUxcXNJSUx6dG5Fd0NGNDIzK2dneisKZGxRcENhRDVFY21wVXVsSFR4cVhyVG5VTXBBQzliMXJsRjRUeUtUZkhrelo0ZGsydjRhcmIyaklidWJzTEFEVwpKbzNDc0RteTd2ZXd6N3F0NXlJV2xIRlk5VEg5WUt4bmVHSEdHYkF3elRKQkJNdEVwaXdIT1l1dDVyN0FDdk1DCkF3RUFBYU5UTUZFd0hRWURWUjBPQkJZRUZGRFh6Y0hpNnBBTXZyZGNNQVI0VkZmVCtsYjBNQjhHQTFVZEl3UVkKTUJhQUZGRFh6Y0hpNnBBTXZyZGNNQVI0VkZmVCtsYjBNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSQpodmNOQVFFTEJRQURnZ0VCQUhVYStGbWZYa3ZHZzFZZzBBQ0JONHJ5SHFXdjEzcmVzM2dDcU43eHFVQ0hsR3RKCmNmMzBTaDFxUXo2eHNKUk4rdEtZWTVKczdLL1dNL1c2d2VqVGI0VEJFazFQUmJzSDhqOW80ZXdWUkEyd2ttaFoKdHFvRnBvazdhMFFiQWtvZnd2KzljcVROR0tMV1VGU2NaRU55UTZmOHNsbFp6OUZvamcvTC92UTdESDgrS1ZKMgpkUlFPWVIrSjMyMTJFN0M4NEhJaVY0S25XU1lxd05KdnlZbm5sMHBZMnIrdzUvWWNOazNmRjd3d2c3OE50UGdzCkN2Qy9IVEJiOW9YUW1wbWJNcFZWVUErbTJsd1M5ZU1JV3h4OTVxc0VDQ08rNEk1M2ZKS1kyQVZGdkI1MFMyQmwKN00vTHlZeXgvaDV2dzBaYTRwNkFEOHdpSEtWbVNEalVzRkxzZ2pNPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+
+
