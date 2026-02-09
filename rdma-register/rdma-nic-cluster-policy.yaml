@@ -1,0 +1,25 @@
+apiVersion: mellanox.com/v1alpha1
+kind: NicClusterPolicy
+metadata:
+  name: nic-cluster-policy
+  namespace: nvidia-network-operator
+spec:
+  rdmaSharedDevicePlugin:
+    image: k8s-rdma-shared-dev-plugin
+    repository: nvcr.io/nvidia/mellanox
+    version: network-operator-v25.7.0
+    config: |
+      {
+        "configList": [
+          { "resourceName": "roce5",  "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp157s0np0"] } },
+          { "resourceName": "roce7",  "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp27s0np0"] } },
+          { "resourceName": "roce8",  "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp188s0f0np0"] } },
+          { "resourceName": "roce9",  "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp188s0f1np1"] } },
+          { "resourceName": "roce10", "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp220s0f0np0"] } },
+          { "resourceName": "roce11", "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp220s0f1np1"] } },
+          { "resourceName": "roce12", "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp77s0f0np0"] } },
+          { "resourceName": "roce13", "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp77s0f1np1"] } },
+          { "resourceName": "roce14", "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp60s0f0np0"] } },
+          { "resourceName": "roce15", "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp60s0f1np1"] } }
+        ]
+      }

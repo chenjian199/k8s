@@ -1,0 +1,1 @@
+export ADMIN_KEY="example-admin-key"

@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rdma-networks
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce5
+spec:
+  networkNamespace: rdma-networks
+  master: enp157s0np0
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.5.0/24","range_start":"192.168.5.200","range_end":"192.168.5.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce7
+spec:
+  networkNamespace: rdma-networks
+  master: enp27s0np0
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.7.0/24","range_start":"192.168.7.200","range_end":"192.168.7.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce8
+spec:
+  networkNamespace: rdma-networks
+  master: enp188s0f0np0
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.8.0/24","range_start":"192.168.8.200","range_end":"192.168.8.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce9
+spec:
+  networkNamespace: rdma-networks
+  master: enp188s0f1np1
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.9.0/24","range_start":"192.168.9.200","range_end":"192.168.9.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce10
+spec:
+  networkNamespace: rdma-networks
+  master: enp220s0f0np0
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.10.0/24","range_start":"192.168.10.200","range_end":"192.168.10.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce11
+spec:
+  networkNamespace: rdma-networks
+  master: enp220s0f1np1
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.11.0/24","range_start":"192.168.11.200","range_end":"192.168.11.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce12
+spec:
+  networkNamespace: rdma-networks
+  master: enp77s0f0np0
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.12.0/24","range_start":"192.168.12.200","range_end":"192.168.12.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce13
+spec:
+  networkNamespace: rdma-networks
+  master: enp77s0f1np1
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.13.0/24","range_start":"192.168.13.200","range_end":"192.168.13.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce14
+spec:
+  networkNamespace: rdma-networks
+  master: enp60s0f0np0
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.14.0/24","range_start":"192.168.14.200","range_end":"192.168.14.250"}
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: roce15
+spec:
+  networkNamespace: rdma-networks
+  master: enp60s0f1np1
+  mode: bridge
+  mtu: 9000
+  ipam: |-
+    {"type":"whereabouts","range":"192.168.15.0/24","range_start":"192.168.15.200","range_end":"192.168.15.250"}

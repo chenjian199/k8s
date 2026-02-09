@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rdma-test-multus-06
+  namespace: dynamo-system
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |
+      [
+        { "name": "roce5", "namespace": "rdma-networks"},
+        { "name": "roce7", "namespace": "rdma-networks"},
+        { "name": "roce8", "namespace": "rdma-networks"},
+        { "name": "roce9", "namespace": "rdma-networks"},
+        { "name": "roce10", "namespace": "rdma-networks"},
+        { "name": "roce11", "namespace": "rdma-networks"},
+        { "name": "roce12", "namespace": "rdma-networks"},
+        { "name": "roce13", "namespace": "rdma-networks"},
+        { "name": "roce14", "namespace": "rdma-networks"},
+        { "name": "roce15", "namespace": "rdma-networks"}
+      ]
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: bdsz-node0001.192.168.4.6
+  restartPolicy: Never
+  containers:
+  - name: rdma-test
+    image: nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+    command: ["sleep", "infinity"]
+    resources:
+      limits:
+        rdma/roce5: 1
+        rdma/roce7: 1
+        rdma/roce8: 1
+        rdma/roce9: 1
+        rdma/roce10: 1
+        rdma/roce11: 1
+        rdma/roce12: 1
+        rdma/roce13: 1
+        rdma/roce14: 1
+        rdma/roce15: 1
+        nvidia.com/gpu: "1"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rdma-test-multus-14
+  namespace: dynamo-system
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |
+      [
+        { "name": "roce5", "namespace": "rdma-networks"},
+        { "name": "roce7", "namespace": "rdma-networks"},
+        { "name": "roce8", "namespace": "rdma-networks"},
+        { "name": "roce9", "namespace": "rdma-networks"},
+        { "name": "roce10", "namespace": "rdma-networks"},
+        { "name": "roce11", "namespace": "rdma-networks"},
+        { "name": "roce12", "namespace": "rdma-networks"},
+        { "name": "roce13", "namespace": "rdma-networks"},
+        { "name": "roce14", "namespace": "rdma-networks"},
+        { "name": "roce15", "namespace": "rdma-networks"}
+      ]
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: bdsz-node0002.192.168.4.14
+  restartPolicy: Never
+  containers:
+  - name: rdma-test
+    image: nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+    command: ["sleep", "infinity"]
+    resources:
+      limits:
+        rdma/roce5: 1
+        rdma/roce7: 1
+        rdma/roce8: 1
+        rdma/roce9: 1
+        rdma/roce10: 1
+        rdma/roce11: 1
+        rdma/roce12: 1
+        rdma/roce13: 1
+        rdma/roce14: 1
+        rdma/roce15: 1
+        nvidia.com/gpu: "1"

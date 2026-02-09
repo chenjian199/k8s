@@ -1,0 +1,241 @@
+# -----------------------------------
+# APISIX Declarative 配置
+# -----------------------------------
+apisix:
+  config_version: 2
+
+# -----------------------------------
+# Consumer Group 定义（统一限流规则）
+# -----------------------------------
+consumer_groups:
+  # 本地模型用户组
+  - group_id: local_models_group
+    plugins:
+      limit-count:
+        count: 100        # 每个客户端 IP 每分钟最多 100 次请求
+        time_window: 60   # 限流窗口 60 秒
+        key: remote_addr  # 按客户端 IP 统计
+
+# -----------------------------------
+# Consumer 定义（30 个用户 + API Key）
+# -----------------------------------
+consumers:
+  - username: "bedilocaluser1"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword1"
+
+  - username: "bedilocaluser2"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword2"
+
+  - username: "bedilocaluser3"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword3"
+
+  - username: "bedilocaluser4"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword4"
+
+  - username: "bedilocaluser5"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword5"
+
+  - username: "bedilocaluser6"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword6"
+
+  - username: "bedilocaluser7"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword7"
+
+  - username: "bedilocaluser8"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword8"
+
+  - username: "bedilocaluser9"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword9"
+
+  - username: "bedilocaluser10"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword10"
+
+  - username: "bedilocaluser11"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword11"
+
+  - username: "bedilocaluser12"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword12"
+
+  - username: "bedilocaluser13"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword13"
+
+  - username: "bedilocaluser14"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword14"
+
+  - username: "bedilocaluser15"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword15"
+
+  - username: "bedilocaluser16"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword16"
+
+  - username: "bedilocaluser17"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword17"
+
+  - username: "bedilocaluser18"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword18"
+
+  - username: "bedilocaluser19"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword19"
+
+  - username: "bedilocaluser20"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword20"
+
+  - username: "bedilocaluser21"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword21"
+
+  - username: "bedilocaluser22"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword22"
+
+  - username: "bedilocaluser23"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword23"
+
+  - username: "bedilocaluser24"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword24"
+
+  - username: "bedilocaluser25"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword25"
+
+  - username: "bedilocaluser26"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword26"
+
+  - username: "bedilocaluser27"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword27"
+
+  - username: "bedilocaluser28"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword28"
+
+  - username: "bedilocaluser29"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword29"
+
+  - username: "bedilocaluser30"
+    group_id: "local_models_group"
+    plugins:
+      key-auth:
+        key: "bedilocalpassword30"
+
+# -----------------------------------
+# Routes（暴露给外部用户的路径）
+# -----------------------------------
+routes:
+  - uri: /v1/*
+    methods: ["GET","POST"]
+    plugins:
+      key-auth: {}
+
+      # 限制并发连接（同 Consumer）
+      limit-conn:
+        conn: 10
+        burst: 5
+        key_type: var_combination
+        key: "$consumer_name $remote_addr"
+        rejected_code: 429
+
+      # 控制每秒输出速率
+      limit-req:
+        rate: 5
+        burst: 3
+        key_type: var_combination
+        key: "$consumer_name $remote_addr"
+        rejected_code: 429
+
+      # 每 60 秒最多总计 300 请求
+      limit-count:
+        count: 50
+        time_window: 60
+        key_type: var_combination
+        key: "$consumer_name $remote_addr"
+        rejected_code: 429
+
+      prometheus: {}
+      access-log: {}
+    upstream:
+      type: roundrobin
+      nodes:
+        "192.168.4.14:30001": 1
