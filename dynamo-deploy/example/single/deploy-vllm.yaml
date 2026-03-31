@@ -1,0 +1,88 @@
+apiVersion: nvidia.com/v1alpha1
+kind: DynamoGraphDeployment
+metadata:
+  name: kimi-k25-vllm-agg
+spec:
+  backendFramework: vllm
+  pvcs:
+    - name: model-cache
+      create: false
+
+  services:
+    Frontend:
+      volumeMounts:
+        - name: model-cache
+          mountPoint: /mnt/share
+      componentType: frontend
+      replicas: 1
+      extraPodSpec:
+        nodeSelector:
+          kubernetes.io/hostname: bdsz-node0002.192.168.4.6
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: nvidia.com/dynamo-graph-deployment-name
+                  operator: In
+                  values:
+                  - kimi-k25-vllm-agg-frontend
+              topologyKey: kubernetes.io/hostname
+        mainContainer:
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:1.0.1
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - python3 -m dynamo.frontend --router-mode kv --http-port 8000
+
+    VllmWorker:
+      componentType: worker
+      volumeMounts:
+        - name: model-cache
+          mountPoint: /mnt/share
+      replicas: 1
+      resources:
+        limits:
+          gpu: "8"
+        requests:
+          gpu: "8"
+      volumeMounts:
+        - name: model-cache
+          mountPoint: /mnt/share
+      sharedMemory:
+        size: 80Gi
+      extraPodSpec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: qiankunding.harmonycloud.cn/gpu-type
+                  operator: In
+                  values:
+                  - nvidia
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - bdsz-node0002.192.168.4.6
+        mainContainer:
+          image: nvcr.io/nvidia/ai-dynamo/vllm-runtime:1.0.1
+          workingDir: /workspace/components/backends/vllm
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+              python3 -m dynamo.vllm \
+                --model "${MODEL_PATH}" \
+                --served-model-name "${SERVED_MODEL_NAME}" \
+                --tensor-parallel-size 8 \
+                --trust-remote-code \
+                --dyn-reasoning-parser kimi_k25 \
+                --dyn-tool-call-parser kimi_k2
+          env:
+            - name: MODEL_PATH
+              value: /mnt/share/kimi-K2.5-NVFP4
+            - name: SERVED_MODEL_NAME
+              value: kimi-k25

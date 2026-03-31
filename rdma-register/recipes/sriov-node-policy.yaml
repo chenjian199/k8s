@@ -7,13 +7,10 @@ spec:
   nodeSelector:
     sriov: enabled
 
-  # 这个名字会变成节点上的 allocatable 资源名（通常是 openshift.io/<resourceName>）
   resourceName: rdma_net
 
-  # 每个 PF 创建多少 VF（按你需要改）
   numVfs: 16
 
-  # RDMA + 普通网卡设备（容器里看到 net1 这类接口）
   deviceType: netdevice
   isRdma: true
 

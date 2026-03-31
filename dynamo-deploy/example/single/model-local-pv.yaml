@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: model-cache-local-pv
+spec:
+  capacity:
+    storage: 700Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: model-cache-local-pv
+  hostPath:
+    path: /mnt/share
+    type: Directory
+  #nfs:
+  #  server: 192.168.1.100
+  #  path: /nfs

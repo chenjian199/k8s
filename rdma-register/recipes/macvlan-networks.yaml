@@ -1,0 +1,149 @@
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce0
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic0"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce0-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce1
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic1"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce1-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce2
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic2"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce2-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce3
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic3"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce3-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce4
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic4"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce4-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce5
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic5"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce5-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce6
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic6"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce6-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce7
+spec:
+  networkNamespace: "dynamo-system"
+  master: "h3cnic7"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce7-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce8
+spec:
+  networkNamespace: "dynamo-system"
+  master: "enp157s0np0"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce8-pool"
+    }
+---
+apiVersion: mellanox.com/v1alpha1
+kind: MacvlanNetwork
+metadata:
+  name: macvlan-roce9
+spec:
+  networkNamespace: "dynamo-system"
+  master: "enp27s0np0"
+  mode: "bridge"
+  mtu: 9000
+  ipam: |
+    {
+      "type": "nv-ipam",
+      "poolName": "rdma-roce9-pool"
+    }

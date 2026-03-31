@@ -1,0 +1,43 @@
+apiVersion: mellanox.com/v1alpha1
+kind: NicClusterPolicy
+metadata:
+  name: nic-cluster-policy
+spec:
+  rdmaSharedDevicePlugin:
+    image: k8s-rdma-shared-dev-plugin
+    repository: nvcr.io/nvidia/mellanox
+    version: network-operator-v26.1.0
+    imagePullSecrets: []
+    config: |
+      {
+        "configList": [
+          { "resourceName": "rdma_roce",    "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp157s0np0", "enp27s0np0", "h3cnic0", "h3cnic1", "h3cnic2", "h3cnic3", "h3cnic4", "h3cnic5", "h3cnic6", "h3cnic7"] } },
+          { "resourceName": "rdma_roce0",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic0"] } },
+          { "resourceName": "rdma_roce1",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic1"] } },
+          { "resourceName": "rdma_roce2",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic2"] } },
+          { "resourceName": "rdma_roce3",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic3"] } },
+          { "resourceName": "rdma_roce4",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic4"] } },
+          { "resourceName": "rdma_roce5",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic5"] } },
+          { "resourceName": "rdma_roce6",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic6"] } },
+          { "resourceName": "rdma_roce7",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["h3cnic7"] } },
+          { "resourceName": "rdma_roce8",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp157s0np0"] } },
+          { "resourceName": "rdma_roce9",   "rdmaHcaMax": 1024, "selectors": { "ifNames": ["enp27s0np0"] } }
+        ]
+      }
+
+  nvIpam:
+    image: nvidia-k8s-ipam
+    repository: nvcr.io/nvidia/mellanox
+    version: network-operator-v26.1.0
+    imagePullSecrets: []
+    enableWebhook: false
+
+  secondaryNetwork:
+    cniPlugins:
+      image: plugins
+      repository: nvcr.io/nvidia/mellanox
+      version: network-operator-v26.1.0
+    multus:
+      image: multus-cni
+      repository: nvcr.io/nvidia/mellanox
+      version: network-operator-v26.1.0

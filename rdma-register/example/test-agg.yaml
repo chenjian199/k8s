@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rdma-test-agg-06
+  namespace: dynamo-system
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |
+      [
+        { "name": "macvlan-roce0", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce1", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce2", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce3", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce4", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce5", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce6", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce7", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce8", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce9", "namespace": "dynamo-system" }
+      ]
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: bdsz-node0002.192.168.4.6
+  restartPolicy: Never
+  containers:
+  - name: rdma-test
+    image: nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+    imagePullPolicy: IfNotPresent
+    command: ["sleep", "infinity"]
+    securityContext:
+      capabilities:
+        add: ["IPC_LOCK"]
+    resources:
+      requests:
+        rdma/rdma_roce: 1
+        nvidia.com/gpu: "1"
+      limits:
+        rdma/rdma_roce: 1
+        nvidia.com/gpu: "1"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rdma-test-agg-14
+  namespace: dynamo-system
+  annotations:
+    k8s.v1.cni.cncf.io/networks: |
+      [
+        { "name": "macvlan-roce0", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce1", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce2", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce3", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce4", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce5", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce6", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce7", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce8", "namespace": "dynamo-system" },
+        { "name": "macvlan-roce9", "namespace": "dynamo-system" }
+      ]
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: bdsz-node0003.192.168.4.14
+  restartPolicy: Never
+  containers:
+  - name: rdma-test
+    image: nvcr.io/nvidia/cuda:12.4.1-base-ubuntu22.04
+    imagePullPolicy: IfNotPresent
+    command: ["sleep", "infinity"]
+    securityContext:
+      capabilities:
+        add: ["IPC_LOCK"]
+    resources:
+      requests:
+        rdma/rdma_roce: 1
+        nvidia.com/gpu: "1"
+      limits:
+        rdma/rdma_roce: 1
+        nvidia.com/gpu: "1"

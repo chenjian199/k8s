@@ -1,0 +1,99 @@
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce0-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.100.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.100.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce1-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.101.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.101.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce2-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.102.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.102.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce3-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.103.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.103.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce4-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.104.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.104.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce5-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.105.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.105.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce6-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.106.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.106.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce7-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.107.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.107.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce8-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.108.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.108.1
+---
+apiVersion: nv-ipam.nvidia.com/v1alpha1
+kind: IPPool
+metadata:
+  name: rdma-roce9-pool
+  namespace: nvidia-network-operator
+spec:
+  subnet: 172.16.109.0/24
+  perNodeBlockSize: 50
+  gateway: 172.16.109.1
