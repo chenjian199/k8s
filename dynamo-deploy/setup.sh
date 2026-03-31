@@ -3,8 +3,8 @@
 
 kubectl -n dynamo-system get pods -o wide
 
-kubectl -n dynamo-system apply -f .dynamo-deploy/example/multi/disagg_kvbm_1p1d.yaml
-kubectl -n dynamo-system apply -f .dynamo-deploy/example/multi/disagg_kvbm_1p1d_rdma.yaml
+kubectl -n dynamo-system apply -f ./dynamo-deploy/examples/multi/disagg_kvbm_1p1d.yaml
+kubectl -n dynamo-system apply -f ./dynamo-deploy/examples/multi/disagg_kvbm_1p1d_rdma.yaml
 kubectl -n dynamo-system get pods -o wide
 
 kubectl -n  dynamo-system port-forward svc/vllm-disagg-kvbm-1p1d-frontend 8000:8000 &
@@ -29,10 +29,11 @@ curl http://localhost:8001/v1/chat/completions \
     "max_tokens": 100
   }'
 
-bash ./dynamo-deploy/benchmark/start-container.sh
+bash ./dynamo-deploy/benchmark/start-container.sh 
 
 #测试容器内
-python ./dynamo-deploy/benchmark/aiperf.py
+python ./k8s/dynamo-deploy/benchmark/aiperf.py --output-dir /workspace/results --service-url http://localhost:8001
+python ./k8s/dynamo-deploy/benchmark/aiperf.py --output-dir /workspace/results --service-url http://localhost:8000
 
 kubectl -n dynamo-system delete dynamographdeployment vllm-disagg-kvbm-1p1d-rdma --ignore-not-found=true
 kubectl -n dynamo-system delete dynamographdeployment vllm-disagg-kvbm-1p1d --ignore-not-found=true

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Start the container
-cd $(dirname $(readlink -f $0))/../..
+cd $(dirname $(readlink -f $0))/../../..
 container/run.sh \
     --image chenjian110/dynamo:vllm-v1.0.1 \
     --mount-workspace \

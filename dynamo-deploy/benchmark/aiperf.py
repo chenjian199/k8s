@@ -22,10 +22,10 @@ DEFAULT_ISL = 500
 DEFAULT_OSL = 20
 DEFAULT_STDDEV = 0
 DEFAULT_CONCURRENCIES = list(range(101, 501, 100))
-DEFAULT_SERVICE_URL = "http://127.0.0.1:8001"
+DEFAULT_SERVICE_URL = "http://127.0.0.1:8000"
 DEFAULT_DURATION = 120
 # Default output under project root: /home/.../dynamo/cjworkspace/temp/sglangv2/disagg
-DEFAULT_OUTPUT_DIR = Path(__file__).resolve().parents[1] / "temp/vllm/disagg"
+DEFAULT_OUTPUT_DIR = Path(__file__).resolve().parent / "temp"
 
 
 def parse_args():
