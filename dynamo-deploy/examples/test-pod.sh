@@ -1,6 +1,16 @@
 #!/bin/bash
 # This script is used to setup the environment for the dynamo deployment example.
 
+# 使用nfs声明pv和pvc
+kubectl -n dynamo-system apply -f ./dynamo-deploy/examples/multi/model-pv.yaml
+kubectl -n dynamo-system apply -f ./dynamo-deploy/examples/multi/model-cache-nfs.yaml
+#（可选）模型文件未挂载进nfs,采用local-path声明pv和pvc
+kubectl apply -f ./dynamo-deploy/examples/single/model-local-pv.yaml -n dynamo-system
+kubectl apply -f ./dynamo-deploy/examples/single/model-cache.yaml -n dynamo-system
+
+kubectl get pv -n dynamo-system | grep model
+kubectl get pvc -n dynamo-system | grep model
+
 kubectl -n dynamo-system get pods -o wide
 
 kubectl -n dynamo-system apply -f ./dynamo-deploy/examples/multi/disagg_kvbm_1p1d.yaml
@@ -37,3 +47,6 @@ python ./k8s/dynamo-deploy/benchmark/aiperf.py --output-dir /workspace/results -
 
 kubectl -n dynamo-system delete dynamographdeployment vllm-disagg-kvbm-1p1d-rdma --ignore-not-found=true
 kubectl -n dynamo-system delete dynamographdeployment vllm-disagg-kvbm-1p1d --ignore-not-found=true
+
+kubectl delete pv model-cache-local-pv
+kubectl delete pv model-cache-pv
